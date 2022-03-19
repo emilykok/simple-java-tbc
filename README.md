@@ -1,2 +1,2 @@
 # simple-java-tbc
-To get acquainted with java, we build a simple turn-based combat game
+To get acquainted with java, we built a simple turn-based combat game!
