@@ -103,19 +103,19 @@ class SpellSlinger extends Class{
     public void fireball(Class target)
     {
         // TODO: Finish this method according to design
-        dmgMove(target, 4, 6, -40, 1, false);
+        Utils.dmgMove(target, 4, 6, -40, 1);
     }
 
     public void thunderbolt(Class target)
     {
         // TODO: Finish this method according to design
-        dmgMove(target, 2, 8, -10, 1, false);
+        Utils.dmgMove(target, 2, 8, -10, 1);
     }
 
     public void freeze(Class target)
     {
         // TODO: Finish this method according to design
-        dmgMove(target, 1, 12, -20, 1, true);
+        Utils.dmgMove(target, 1, 12, -20, 1, true);
     }
 }
 
@@ -130,13 +130,13 @@ class Healer extends Class{
     public void healingSong(Class target)
     {
         // TODO: Finish this method according to design
-        healMove(target, 2, 8, -10, 1);
+        Utils.healMove(target, 2, 8, -10, 1);
     }
 
     public void rejuvenate(Class target)
     {
         // TODO: Finish this method according to design
-        healMove(target, 4, 6, -40, 1);
+        Utils.healMove(target, 4, 6, -40, 1);
     }
 
     public void massHeal(Class[] targets)
@@ -144,7 +144,7 @@ class Healer extends Class{
         // TODO: Finish this method according to design
         for(Class target : targets)
         {
-            healMove(target, 1, 6, -20, 1);
+            Utils.healMove(target, 1, 6, -20, 1);
         }
         
     }
@@ -162,13 +162,13 @@ class Swordsman extends Class{
     public void slash(Class target)
     {
         // TODO: Finish this method according to design
-        dmgMove(target, 1, 12, -10, 1, false);
+        Utils.dmgMove(target, 1, 12, -10, 1);
     }
 
     public void thrust(Class target)
     {
         // TODO: Finish this method according to design
-        dmgMove(target, 2, 8, -20, 1, false);
+        Utils.dmgMove(target, 2, 8, -20, 1);
     }
 
     public void guard() // Should stay in "Melee" stance; can only guard itself; lasts for duration of opponents turn
@@ -191,7 +191,7 @@ class GunSlinger extends Class{
     public void shoot(Class target)
     {
         // TODO: Finish this method according to design
-        dmgMove(target, 1, 12, -20, 1, false);
+        Utils.dmgMove(target, 1, 12, -20, 1);
     }
 
     public void blast(Class target) // check added field!
@@ -199,7 +199,7 @@ class GunSlinger extends Class{
         // TODO: Finish this method according to design
         if(charged == true)
         {
-            dmgMove(target, 4, 6, -20, 1, false);
+            Utils.dmgMove(target, 4, 6, -20, 1);
             charged = false;
         }
         else
@@ -230,19 +230,19 @@ class Basher extends Class{
     public void shieldBash(Class target)
     {
         // TODO: Finish this method according to design
-        dmgMove(target, 2, 8, -10, 1, false);
+        Utils.dmgMove(target, 2, 8, -10, 1);
     }
 
     public void shieldShove(Class target)
     {
         // TODO: Finish this method according to design
-        dmgMove(target, 1, 8, -30, 1, true);
+        Utils.dmgMove(target, 1, 8, -30, 1, true);
     }
 
     public void mace(Class target)
     {
         // TODO: Finish this method according to design
-        dmgMove(target, 1, 12, -20, 1, false);
+        Utils.dmgMove(target, 1, 12, -20, 1);
     }
 }
 
@@ -259,7 +259,7 @@ class Aider extends Class{
         // TODO: Finish this method according to design
         for(Class target : targets)
         {
-            nonDmgMove(target, -40, 1, false, true);
+            Utils.nonDmgMove(target, -40, 1, false, true);
         }
     }
 
@@ -268,13 +268,13 @@ class Aider extends Class{
         // TODO: Finish this method according to design
         for(Class target : targets)
         {
-            nonDmgMove(target, -20, 1, true, false);
+            Utils.nonDmgMove(target, -20, 1, true, false);
         }        
     }
 
     public void lifeAid(Class target)
     {
         // TODO: Finish this method according to design
-        healMove(target, 2, 8, -10, 1);
+        Utils.healMove(target, 2, 8, -10, 1);
     }
 }

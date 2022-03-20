@@ -2,64 +2,79 @@
 
 //TODO:
 // - Finish the methods in the "Class.java" file
-// - Add a doesHit() method
 // - Improvements to the way class works?
 
 class Utils {
     // rolls amount of dice with n sides
-    public static int diceRoll(int amount, int type) {
-        int total = 0;
+    public static Integer diceRoll(Integer amount, Integer type) {
+        Integer total = 0;
         for (int i = 0; i < amount; i++) {
             total += (int) (Math.random() * type) + 1; // It is +1 because the dice rolls from 1 to type, this works! 
         }
         return total;
     }
-    
+
     //to check if attack hits
-    public static bool doesHit(Integer[] failure) {
+    public static boolean doesHit(Integer[] failure) {
         int hit = diceRoll(1, 100);
         if (hit <= failure[0]+100) {
             return true;
         }
         return false;
     }
-
-    // dmg move
-    public static void dmgMove(Class target, int diceAmount, int diceType, int failChance, int duration, bool stun) {
-        setFailure(failChance,duration);
-        if(target.getShielded > 0){
-            if(doesHit(getFailure()))
+    
+    // dmg move - main
+    public static void dmgMove(Class target, int diceAmount, int diceType, int failChance, int duration) {
+        target.setFailure(new Integer[] {failChance,duration});
+        if(target.getShielded() > 0){
+            if(doesHit(target.getFailure()))
             {
-                target.setHP(target.getHP() - diceRoll(diceAmount,diceType));
+                target.setHP(target.getHP() - diceRoll(diceAmount, diceType));
             }
         }
-        if (stun == true && target.getStunned == false) {
+        else{
+            target.setShielded(target.getShielded() - 1);
+        }
+    }
+
+    // dmg move - stun
+    public static void dmgMove(Class target, int diceAmount, int diceType, int failChance, int duration, boolean stun) {
+        target.setFailure(new Integer[] {failChance,duration});
+        if(target.getShielded() > 0){
+            if(doesHit(target.getFailure()))
+            {
+                target.setHP(target.getHP() - diceRoll(diceAmount, diceType));
+            }
+        }
+        if (stun == true && target.getStunned() == false) {
             target.setStunned(true);
         }
         else{
-            target.setShielded(getShielded() - 1);
+            target.setShielded(target.getShielded() - 1);
         }
     }
+
+
     
     // heal move
     public static void healMove(Class target, int diceAmount, int diceType, int failChance, int duration){
-        setFailure(failChance,duration);
-        if(doesHit(getFailure()))
+        target.setFailure(new Integer[] {failChance,duration});
+        if(doesHit(target.getFailure()))
         {
-            target.setHP(target.getHP() + diceRoll(diceAmount,diceType));
+            target.setHP(target.getHP() + diceRoll(diceAmount, diceType));
         }
     }
 
     // non-dmg move
-    public static void nonDmgMove(Class target, int failChance, int duration, bool stun, bool shield) {
-        setFailure(failChance,duration);
-        if(doesHit(getFailure()))
+    public static void nonDmgMove(Class target, int failChance, int duration, boolean stun, boolean shield) {
+        target.setFailure(new Integer[] {failChance,duration});
+        if(doesHit(target.getFailure()))
         {
-            if(stun == true && target.getStunned == false) {
+            if(stun == true && target.getStunned() == false) {
                 target.setStunned(true);
             }
             else{
-                target.setShielded(getShielded() + 1);
+                target.setShielded(target.getShielded() + 1);
             }
         }
     }
