@@ -22,7 +22,7 @@ class Class {
         this.shield = 0;
        
         // apply race
-        if (race == "Human")
+        if (race == "Human") 
         {
             this.failure = new Integer[]{-10, -1};   
         }
@@ -30,6 +30,7 @@ class Class {
         {
             this.hp[1] = this.hp[1] + 10; 
         }
+
     }
 
     // Get Setters
@@ -60,6 +61,7 @@ class Class {
 
     public void setFailure(Integer[] failure)
     {
+        // if race == "Elf"?
         this.failure = failure;
     }
 
@@ -101,16 +103,37 @@ class SpellSlinger extends Class{
     public void fireball(Class target)
     {
         // TODO: Finish this method according to design
+        setFailure(-40,1);
+        if(target.getShielded > 0){
+            if(doesHit(getFailure()))
+            {
+                target.setHP(target.getHP() - diceRoll(4,6));
+            }
+        }
+        else{
+            target.setShielded(getShielded() - 1);
+        }
     }
 
     public void thunderbolt(Class target)
     {
         // TODO: Finish this method according to design
+        setFailure(-10,1);
+        if(doesHit(getFailure()))
+        {
+            target.setHP(target.getHP() - diceRoll(2,8));
+        }
     }
 
     public void freeze(Class target)
     {
         // TODO: Finish this method according to design
+        setFailure(-20,1);
+        if(doesHit(getFailure()))
+        {
+            target.setHP(target.getHP() - diceRoll(1,12));
+            target.setStunned(true);
+        }
     }
 }
 
@@ -125,16 +148,34 @@ class Healer extends Class{
     public void healingSong(Class target)
     {
         // TODO: Finish this method according to design
+        setFailure(-10,1);
+        if(doesHit(getFailure()))
+        {
+            target.setHP(target.getHP() + diceRoll(2,8));
+        }
     }
 
     public void rejuvenate(Class target)
     {
         // TODO: Finish this method according to design
+        setFailure(-40,1);
+        if(doesHit(getFailure()))
+        {
+            target.setHP(target.getHP() + diceRoll(4,6));
+        }
     }
 
     public void massHeal(Class[] targets)
     {
         // TODO: Finish this method according to design
+        setFailure(-20,1);
+        if(doesHit(getFailure()))
+        {
+            for(Class target : targets)
+            {
+                target.setHP(target.getHP() + diceRoll(1,6));
+            }
+        }
     }
 }
 
@@ -150,6 +191,11 @@ class Swordsman extends Class{
     public void slash(Class target)
     {
         // TODO: Finish this method according to design
+        setFailure(-10,1);
+        if(doesHit(getFailure(-10,1)))
+        {
+            target.setHP(target.getHP() - diceRoll(1,12));
+        }
     }
 
     public void thrust(Class target)
