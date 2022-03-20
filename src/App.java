@@ -14,6 +14,7 @@ class Utils {
         }
         return total;
     }
+    
     //to check if attack hits
     public static bool doesHit(Integer[] failure) {
         int hit = diceRoll(1, 100);
@@ -22,6 +23,48 @@ class Utils {
         }
         return false;
     }
+
+    // dmg move
+    public static void dmgMove(Class target, int diceAmount, int diceType, int failChance, int duration, bool stun) {
+        setFailure(failChance,duration);
+        if(target.getShielded > 0){
+            if(doesHit(getFailure()))
+            {
+                target.setHP(target.getHP() - diceRoll(diceAmount,diceType));
+            }
+        }
+        if (stun == true && target.getStunned == false) {
+            target.setStunned(true);
+        }
+        else{
+            target.setShielded(getShielded() - 1);
+        }
+    }
+    
+    // heal move
+    public static void healMove(Class target, int diceAmount, int diceType, int failChance, int duration){
+        setFailure(failChance,duration);
+        if(doesHit(getFailure()))
+        {
+            target.setHP(target.getHP() + diceRoll(diceAmount,diceType));
+        }
+    }
+
+    // non-dmg move
+    public static void nonDmgMove(Class target, int failChance, int duration, bool stun, bool shield) {
+        setFailure(failChance,duration);
+        if(doesHit(getFailure()))
+        {
+            if(stun == true && target.getStunned == false) {
+                target.setStunned(true);
+            }
+            else{
+                target.setShielded(getShielded() + 1);
+            }
+        }
+    }
+
+            
 }
 
 public class App {
